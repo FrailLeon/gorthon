@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <script src="/static/js/article.js"></script>
+    <link rel="stylesheet" href="/static/css/article.css" />
+    <script src="/static/js/third/editor/kindeditor-min.js"></script>
+    <script src="/static/js/third/editor/zh_CN.js"></script>
+    <script src="/static/js/third/hashlib.js"></script>
+
+{% endblock %}
+
+{% block page %}
+    <div id="content">
+        {% set aid = article.aid %}
+        {% set date = article.date %}
+        <div id="article">
+            <div id="article-wrapper">
+                <div id="article-header">
+                    {% if prev %}
+                        <a href="/article/{{ request }}/{{ prev.aid }}{{ '/' +  prev.url if prev.url  }}" id="prev-article" title="{{ prev.title
+                        }}">&lt;&nbsp;Previous Post</a>
+                    {% endif %}
+                    {% if next %}
+                        <a href="/article/{{ request }}/{{ next.aid }}{{ '/' +  next.url if next.url  }}" id="next-article" title="{{ next.title
+                        }}">Next Post&nbsp;&gt;</a>
+                    {% endif %}
+                </div>
+                <h2 id="article-title">{{ article.title }}</h2>
+                <div id="article-main">
+                    <p>{{ article.content }}</p>
+                </div>
+            </div>
+            <div id="article-meta">
+                {% include "meta-date.html" %}
+            </div>
+        </div>
+        <div id="comment">
+            <div id="comment-title">评论</div>
+            <label>昵&nbsp;&nbsp;称<input id="nick" class="input"/></label>
+            <label>邮&nbsp;&nbsp;箱<input id="email" class="input" /></label>
+            <label>网&nbsp;&nbsp;址<input id="url" class="input" /></label>
+            <textarea id="editor" name="editor"></textarea>
+            <label class="last-label">验证码<input class="input" id="code" value="test" /></label>
+            <a href="/vcode/" id="reload-code">换一张</a>
+            <a href="{{ aid }}" id="add-comment">提交评论</a>
+        </div>
+        <a name="read-comment"></a>
+        <div id="discuss-title">讨论</div>
+        <div id="discuss">
+            {% for c in article.comment %}
+                <div>
+                    {% set author = c.author if c.author | e else "匿名网友" %}
+                    <a href="{{ c.url if c.url else "javascript:void(0)" }}" target="_blank" class="comment-author">{{ author }}</a>
+                    {{ c.content }}
+                </div>
+            {% endfor %}
+        </div>
+        <div id="big-img">
+            <div class="g-dlg-mask"></div>
+            <div id="img-body">
+                <div id="img-content"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

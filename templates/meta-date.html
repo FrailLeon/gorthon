@@ -1,0 +1,44 @@
+<div class="post-meta">
+    <div class="date-wrapper">
+        {% set offset = now - date %}
+        {% set seconds = offset.seconds %}
+        {% set offset_day = offset.days %}
+        {% if offset_day == 0 %}
+            {% if seconds >= 3600 %}
+                {% set txt = "%d%s" | format(seconds / 3600,  "小时前") %}
+            {% elif seconds >= 60 %}
+                {% set txt = "%d%s" | format(seconds / 60, "分钟前") %}
+            {% else %}
+                {% set txt = "%d%s" | format(seconds, "秒前") %}
+            {% endif %}
+        {% elif offset_day == 1%}
+            {% set txt = "昨天" %}
+        {% elif offset_day == 2%}
+            {% set txt = "前天" %}
+        {% else %}
+            {% set txt = date %}
+        {% endif %}
+        <a href="/{{ date.strftime('%Y-%m') }}" title="查看{{ date.year }}年{{ date.month }}月的文章" class="date">{{ txt }}</a>
+    </div>
+    <div class="post-info">
+        <ul class="info-box">
+            <li class="pv"><a href="/article/{{ request }}/{{ aid }}" title="阅读全文">阅读({{ article.pv }})</a></li>
+            <li class="comment-num"><a href="/article/{{ request }}/{{ aid }}{{ ('/' +  url) if url  }}#read-comment" title="查看评论">评论({{ article
+            .comment_num }})</a></li>
+            {% if logged %}
+                <li class="pv"><a href="/edit/{{ aid }}">编辑</a></li>
+                <li class="delete-post"><a href="/delete/{{ aid }}{{ '/' + article.url if article.url }}" class="gorthon-dlg">删除</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    {#
+                    <div class="classes-wrapper">
+                        {% for id in classes %}
+                            <a href="/classes/{{ all_classes[id | int] }}" class="classes">{{ all_classes[id | int] }}</a>
+                            {% if not loop.last %}{{ "    |    " }}{% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="comment-wrapper">
+                    </div>
+                    #}
+</div>

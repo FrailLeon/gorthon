@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <script src="/static/js/content.js"></script>
+    <script src="/static/js/code_highlight.js"></script>
+
+    <link href="/static/css/content.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/code_box.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/code-highlight/python.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block page %}
+    <div id="content">
+        <label for="code">python代码高亮</label>
+        <textarea rows="10" cols="60" id="code"></textarea>
+        <div id="language-wrapper">
+            <select id="lang-option">
+                <option value=".c">C</option>
+                <option value=".cpp">C++</option>
+                <option value=".css">CSS</option>
+                <option value=".html">Html</option>
+                <option value=".js">JavaScript</option>
+                <option value=".py" selected="selected">Python</option>
+            </select>
+        </div>
+        <input type="button" id="btn_color" value="着色"/>
+        {% include "code_box.html" %}
+        {% include "code_box.html" %}
+    </div>
+{% endblock %}

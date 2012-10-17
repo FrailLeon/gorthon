@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+    <script src="/static/js/edit.js"></script>
+    <script src="/static/js/third/editor/kindeditor-min.js"></script>
+    <script src="/static/js/third/editor/zh_CN.js"></script>
+
+    <script src="/static/js/third/editor/plugins/highlight/highlight.js"></script>
+    <link href="/static/js/third/editor/plugins/highlight/code_box.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/js/third/editor/plugins/highlight/python.css" rel="stylesheet" type="text/css"/>
+
+    <link href="/static/css/edit.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block page %}
+    <div id="article-wrapper">
+        <div id="article">
+            <input type="hidden" id="article-id" value="{{ article.aid }}">
+            <h3 id="article-slogan">发布文章</h3>
+            <div id="article-area">
+                <label>文章标题**<input id="article-title" type="text" class="input" tabindex="1" value="{{ article.title }}"></label>
+                {# <label>文章内容**<textarea id="article-main" rows="15" cols="90" class="textarea"></textarea></label> #}
+                <label for="editor">文章内容**</label>
+                <textarea id="editor" name="editor">{{ article.content | e }}</textarea>
+            </div>
+            <div id="article-settings">
+                <div id="type-wrapper" class="wrapper">
+                    <label for="type">文章类型**</label>
+                    <div id="type" class="box">
+                        <a id ="original" {% if article.type=='原创' or not article %}class="current"{% endif %}>原创</a>
+                        <a id ="reproduced" {% if article.type=='转载' %}class="current"{% endif %}>转载</a>
+                        <a id ="translation" {% if article.type=='翻译' %}class="current"{% endif %}>翻译</a>
+                        <div id="reproduce-box">
+                            <label>原文网址&nbsp;&nbsp;<input id ="origin-url" class="input" value="{{ article.origin | e }}"></label>
+                            <label>原文声明&nbsp;&nbsp;<textarea id ="announcement" class="textarea" rows="2" cols="90">{{ article.announcement | e
+                                    }}</textarea></label>
+                        </div>
+                    </div>
+                </div>
+                <div id="classes-wrapper" class="wrapper">
+                    <label>文章分类**</label>
+                    <div id="classes" class="box">
+                        {% for cls in classes %}
+                            {% if article %}
+                                <a id ="classes-{{ cls.id }}" {% if cls.id | string in article.classes.split(' ') %}class="current"{% endif %}>{{ cls.cls
+                                    }}</a>
+                            {% else %}
+                                <a id ="classes-{{ cls.id }}" {% if cls.id == 1 %}class="current"{% endif %}>{{ cls.cls }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        <input id ="add-classes" class="add" value="添加＋">
+                    </div>
+                </div>
+                <div id="tags-wrapper" class="wrapper">
+                    <label>文章标签</label>
+                    <div id="tags" class="box">
+                        {% if article %}
+                            {% for tag in article.tags.split(' ') if tag %}
+                                    <a class="tags current">{{ tag }}</a>
+                            {% endfor %}
+                        {% endif %}
+                        <input id ="add-tags" class="add" value="添加＋">
+                    </div>
+                </div>
+                <div id="settings-wrapper" class="wrapper">
+                    <label>文章设置</label>
+                    <div id="settings" class="box">
+                            <a id="settings-pwd" {{ article.pwd and 'class="current"' or '' }}>访问密码：{{ article.pwd and '需要'  or '不要'}}</a>
+                            <a id="settings-reviewable" {{ (article and not article.reviewable) and 'class="current"' or '' }}>
+                                可否评论：{{ (not article or article.reviewable) and '可以' or '不可' }}</a>
+                            <a id="settings-reproduced" {{ (article and not article.reproduced) and 'class="current"' or '' }}>
+                                允许转载：{{ (not article or article.reproduced) and '允许' or '不许' }}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="btns">
+                <a id="save">保存</a>
+                {% if not article.aid %}
+                    <a id="submit">发表</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+
+    </script>
+{% endblock %}

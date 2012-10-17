@@ -1,0 +1,33 @@
+<script src="/static/js/third/textualizer.min.js"></script>
+<div id="left-sidebar">
+    <div id="logo">
+        <h1><a href="/" id="logo-title" title="博客首页">GORTHON'S</a></h1>
+    </div>
+    <div id="separator"></div>
+    <ul id="menu" class="nav">
+        <li class="current"><a href="/" title="HOME 首页">HOME 首页</a></li>
+        <li><a href="/archive" title="ARCHIVE 存档">ARCHIVE 存档</a></li>
+        <li><a href="#" title="PRIVATE LETTER 私信">PRIVATE-LETTER 私信</a></li>
+        <li><a href="#" title="ABOUT 关于">ABOUT 关于</a></li>
+    </ul>
+    <div id="footer">
+        <div id="footer-slogan" class="footer-box">
+            人生苦短，我用PYTHON
+        </div>
+        <div id="footer-counter" class="footer-box">
+            IP计数 {{ ip_count }}<br />
+            访问量 {{ total_visit }}
+        </div>
+        <div id="zen"></div>
+        <div id="copy-right" class="footer-box">
+            <div id="empty-line"><br /><br /></div>
+            本站采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/" target="_blank">知识共享署名-非商业性使用-相同方式共享 2.5
+            中国大陆许可协议</a>
+            Powered By <a href="/">Shuji</a><br />&copy; <a href="/">Gorthon</a> 2012
+        </div>
+        <p>友好外交</p>
+        <a href="http://ashin.sinaapp.com/" target="_blank">AshIn's Blog</a><br />
+        <a href="http://www.shahuwang.com" target="_blank">沙湖王 | 知识只有分享才能延续生命</a><br />
+        {% include "right_sidebar.html" %}
+    </div>
+</div>

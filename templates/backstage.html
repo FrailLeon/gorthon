@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>后台管理</title>
+    <script src="/static/js/third/jquery-1.7.2.min.js"></script>
+    <script src="/static/js/backstage.js"></script>
+
+    <link href="/static/css/backstage.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="title">
+        <span id="head-title" class="title">后台管理</span>
+        <span id="bread-crumbs" class="title"><span></span></span>
+        <span id="shuji" class = "title">书记</span>
+        <img id="head" class="title" src="/static/img/shuji.png"/>
+    </div>
+    <div id="nav-wrapper">
+        <div id="left-box" class="box-container">
+            <a id="home" class="mid dark-red" href="/">
+                <img src="/static/img/home.png">
+                <label>主页</label>
+            </a>
+            <a href="/backstage/profile" id="profile" class="mid cyan">
+                <img src="/static/img/profile.png">
+                <label>个人中心</label>
+            </a>
+            <a href="/edit" class="mid yellow-orange">
+                <img src="/static/img/edit.png">
+                <label>发表文章</label>
+            </a>
+            <a href="/logout" id="logout" class="mid light-green">
+                <img src="/static/img/logout.png">
+                <label>注销</label>
+            </a>
+        </div>
+    </div>
+    <div id="body"></div>
+    <div id="right-box" class="box-container">
+        <a id="article" class="blue big" href="/backstage/article">
+            <img src="/static/img/article.png">
+            <label>文章管理</label>
+        </a>
+        <a id="comment" class="green mid" href="/backstage/comment">
+            <img src="/static/img/comment.png">
+            <label>评论管理</label>
+        </a>
+        <a id="class" class="orange mid" href="/backstage/class">
+            <img src="/static/img/class.png">
+            <label>分类管理</label>
+        </a>
+        <a id="tag" class="purple big" href="/backstage/tag">
+            <img src="/static/img/tag.png">
+            <label>标签管理</label>
+        </a>
+        <a id="link" class="red mid" href="/backstage/link">
+            <img src="/static/img/link.png">
+            <label>友链管理</label>
+        </a>
+        <a href="/backstage/strategy" id="strategy" class="mid black">
+            <img src="/static/img/strtegy.png">
+            <label>图表统计</label>
+        </a>
+    </div>
+</body>
+</html>

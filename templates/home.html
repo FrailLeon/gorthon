@@ -1,0 +1,59 @@
+﻿{% extends "base.html" %}
+
+{% block head %}
+    <meta name="baidu-site-verification" content="uGJuzEc8MLiWteJA" />
+    <meta name="google-site-verification" content="uhYpf66V6JDrBCoag7kqkDWczMz_Tzi7S-BcAdBaRSg" />
+    <script src="/static/js/home.js"></script>
+    <link rel="stylesheet" href="/static/css/home.css" />
+{% endblock %}
+
+{% block page %}
+    <div id="content">
+        {% for article in articles %}
+            {% set aid = article.aid %}
+            {% set type = article.type %}
+            {% set title = article.title %}
+            {% set content = article.content %}
+            {% set date = article.date %}
+            {% set url = article.url %}
+            {#
+            {% set classes = article.classes.split() %}
+            {% set pwd = article.pwd %}
+            {% set reviewable = article.reviewable %}
+            {% set reproduced = article.reproduced %}
+            {% set tags = article.tags %}
+            {% set origin = article.origin %}
+            {% set announcement = article.announcement %}
+            #}
+            <div class="post">
+                <div class="post-main">
+                    <h2>
+                        <a href="/{{ "originality" if type=="原创" else ("reprint" if type=="转载" else "translation") }}" title="查看所有[{{ type }}]的文章">{{ type }}</a>&nbsp;|&nbsp;
+                        <a href="/article/{{ request }}/{{ aid }}{{ ('/' +  url) if url  }}" title="{{ title }}">{{ title }}</a>
+                    </h2>
+                    <div class="post-content">
+                         <p>{{ content | getMultimedia }}</p>
+                        {% set c = content | html2text %}
+                        <p>
+                            {{ (content | html2text)[:600] | e }}
+                            {% if c|length > 600 %}
+                                <a href="/article/{{ request }}/{{ aid }}{{ ('/' +  url) if url  }}" title="点击阅读更多内容">
+                                    <br /><br /><span style="color:#333;">阅读更多 >>></span>
+                                </a>
+                            {% endif %}
+                        </p>
+
+                    </div>
+                </div>
+                {% include "meta-date.html" %}
+            </div>
+        {% endfor %}
+    </div>
+    <div id="pagination">
+        {% set pages =  (post_count / per_page if post_count is divisibleby per_page else 1 + (post_count / per_page)) | int %}
+        {% for i in range(pages) if pages > 1 %}
+            <a href="/{{ request }}/page/{{ i + 1 }}" class="page-num">{{ i + 1 }}</a>
+            {% if not loop.last %}{{ "    |    " }}{% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

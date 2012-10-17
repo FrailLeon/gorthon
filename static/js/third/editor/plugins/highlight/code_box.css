@@ -1,0 +1,95 @@
+.highlight pre,
+.linenodiv pre{
+    font-family: "Comic Sans MS", cursive, Ubuntu, "microsoft yahei", sans-serif;
+    font-size: 16px;
+    margin-top: 0;
+    padding: 40px 10px 20px 10px;
+    /*自动换行*/
+    /*
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -webkit-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    */
+}
+
+table{
+    border-spacing: 0;
+}
+
+td{
+    padding: 0;
+}
+
+.linenodiv pre{
+    color: #66d9ef;
+    overflow: hidden;
+}
+
+.code-box{
+    position: relative;
+    margin-top: 10px;
+    -webkit-border-top-left-radius: 7px;
+    -webkit-border-top-right-radius: 7px;
+    -webkit-border-bottom-right-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    display: none;
+    margin-bottom: 20px;
+    min-height: 40px;
+}
+
+.code-header{
+    background-color: #F3A01E;
+    color: #333;
+    font-weight: bold;
+    height: 12px;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    -webkit-border-top-left-radius: 7px;
+    -webkit-border-top-right-radius: 7px;
+    -webkit-border-bottom-right-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.code-src{
+    background-color: #333;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.code-type{
+    display: inline;
+}
+
+.code-labels{
+    position: absolute;
+    display: none;
+    right: 10px;
+    left: 500px;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.code-labels label{
+    margin-left: 10px;
+}
+
+.line-no:hover,
+.bar:hover,
+.fixed-height:hover{
+    cursor: pointer;
+}

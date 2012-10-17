@@ -1,0 +1,23 @@
+﻿<script src="/static/js/third/hashlib.js"></script>
+
+<div id="right-sidebar" class="footer-box">
+    <div id="btn-wrap">
+        {% if logged %}
+            {% set readonly = 'readonly="readonly"' %}
+            {% set btn_label = "注销" %}
+        {% else %}
+            {% set readonly = "" %}
+            {% set btn_label = "登录" %}
+        {% endif %}
+        <div id="admin">
+            <input type="password" id="pwd" placeholder="为自由而生，为自由而死" {{ readonly }}/>
+            <a  href={{ "/logout" if logged else "/login"}} id="btn-login">{{ btn_label }}</a>
+            <div id="post-wrapper">
+                {% if logged %}
+                    {% include "admin.html" %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+

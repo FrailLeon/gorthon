@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
+    <script> // 微软
+        //!window.jQuery && document.write('<script src=http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js><\/script>');
+    </script>
+    <script> // 新浪
+        //!window.jQuery && document.write('<script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"><\/script>');
+    </script>
+    <script> // 本地
+        !window.jQuery && document.write('<script src="/static/js/third/jquery-1.7.2.min.js"><\/script>');
+    </script>
+    <script src="/static/js/base.js"></script>
+
+    <link href="/static/css/base.css" rel="stylesheet" type="text/css" />
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <div id="main">
+        <div id="sidebar">
+            {% include "left_sidebar.html" %}
+        </div>
+        <div id="page">
+            {% include "header.html" %}
+            <div id="content-wrapper">
+                {% block page %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    {% block decorator %}
+        {% include "decorator.html" %}
+    {% endblock %}
+
+</body>
+</html>

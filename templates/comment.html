@@ -1,0 +1,27 @@
+<script src="/static/js/comment.js"></script>
+<link href="/static/css/comment.css" rel="stylesheet" type="text/css" />
+
+<div id="body-comment" class="box-container">
+    {% set colors = ["purple", "red", "orange", "blue", "green", "black", "yellow-orange", "brown", "cyan", "dark-red", "light-green"] %}
+    {% for i, v in enumerate(articles) %}
+        {% set title = v[0] %}
+        {% set aid = v[1] %}
+        {% set comments = v[2] %}
+        <div class="{{ colors[idx[i]] }} article-item">
+            <a href="/article/home/{{ aid }}#read-comment" class="article-title">NO.{{i+1}}　{{ title }}</a>
+            {% for j, c in enumerate(comments) %}
+                <div class="comment-item">
+                    <div class="hr">
+                        @{{j+1}}　{{ c.date }}　
+                        {{ '<a href="%s" target="__blank">' % c.url if c.url else '' }}
+                        {{ c.author if c.author else '匿名网友' }}
+                        {{ '</a>' if c.url else ''}}
+                        {{ '[%s]' % c.mail if c.mail else ''}}
+                    </div>
+                    {{ c.content }}
+                    <br />
+                    </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>

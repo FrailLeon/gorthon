@@ -1,0 +1,287 @@
+html body{
+    margin: 0 auto;
+}
+
+body{
+    background: #014051;
+    background: #333;
+    overflow: hidden;
+    position: relative;
+    min-width: 960px;
+    height: 700px;
+    color: #fff;
+    font-family: "微软雅黑", sans-serif;
+    font-size: 14px;
+}
+
+#left-box{
+    position: fixed;
+    top: 140px;
+    left: 10px;
+    padding: 0;
+    width: 140px;
+}
+
+#title .title{
+    position: fixed;
+    font-size: 30px;
+    color: #fff;
+    top: 50px;
+    padding-top: 17px;
+}
+
+#bread-crumbs{
+    left: 390px;
+    font-size: 20px !important;
+}
+
+#shuji{
+    right: 125px;
+}
+
+#head-title{
+    left: 10px;
+}
+
+#head{
+    width: 50px;
+    height: 50px !important;
+    position: relative;
+    right: 70px;
+    border: none;
+    top: 0;
+    padding-top: 0 !important;
+}
+
+#right-box{
+    position: fixed;
+    top: 140px;
+    right: 0;
+}
+
+.box-container>a{
+    cursor: pointer;
+    margin: 0 5px 5px 0;
+    position: relative;
+    border-radius: 1px;
+    display: block;
+    box-shadow: 1px 1px 3px #999;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+}
+
+
+.box-container>a:hover{
+    box-shadow: 1px 1px 7px #aaa;
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    z-index: 100;
+}
+
+@-moz-keyframes y-spin {
+	100% { -moz-transform: rotateY(360deg); }
+}
+
+@-webkit-keyframes y-spin {
+	100% { -webkit-transform: rotateY(360deg); }
+}
+
+@-o-keyframes y-spin {
+	100% { -o-transform: rotateY(360deg); }
+}
+
+.box-container>a:hover img{
+    -webkit-transform-style: preserve-3d;
+    -webkit-animation-name: y-spin;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+
+    -moz-transform-style: preserve-3d;
+    -moz-animation-name: y-spin;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: linear;
+
+    -o-transform-style: preserve-3d;
+    -o-animation-name: y-spin;
+    -o-animation-duration: 1s;
+    -o-animation-iteration-count: 1;
+    -o-animation-timing-function: linear;
+}
+
+.purple{
+    background: #623DBE;
+}
+
+.orange{
+    background: #D9512B;
+}
+
+.black{
+    background: #7E9076;
+}
+
+.yellow-orange{
+    background: #D68F4B;
+}
+
+.brown{
+    background: #988071;
+}
+
+.cyan{
+    background: #0AAECF;
+}
+
+.dark-red{
+    background: #A85B92;
+}
+
+.blue{
+    background: #2D89F0;
+}
+
+.red{
+    background: #BE1D49;
+}
+
+.green{
+    background: #009017;
+}
+
+.light-green{
+    background: #6BB61D;
+}
+
+.big{
+    height: 120px;
+    width: 245px;
+    clear: both;
+}
+
+.mid{
+    height: 120px;
+    width: 120px;
+    float: left;
+}
+
+.box-container>a>label{
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.box-container>a>img{
+    position: absolute;
+    top: 25px;
+}
+
+.mid img{
+    left: 28px;
+}
+
+.big img{
+    left: 95px;
+}
+
+#body{
+    position: absolute;
+    top: 140px;
+    left: 150px;
+    right: 290px;
+    padding-bottom: 54px;
+}
+
+.body-bg{
+    background: rgba(190, 190, 190, .8);
+    border-radius: 2px;
+    box-shadow: 2px 2px 15px #fff;
+    padding: 5px;
+}
+
+#classes a{
+    float: left;
+    width: 122px;
+    height: 58px;
+    cursor: default;
+}
+
+#classes{
+    padding: 3px 0 3px 18px;
+}
+
+#classes .cls{
+    text-align: center;
+    line-height: 60px;
+}
+
+#classes a label{
+    display: none;
+}
+
+#classes a:hover label{
+    display: inline;
+}
+
+#classes a input{
+    outline: none;
+    height: 100%;
+    color: #fff;
+    background: transparent;
+    font-family: "微软雅黑", sans-serif;
+    border: 0;
+    cursor: pointer;
+}
+
+input::-webkit-input-placeholder {
+    color:    #fff;
+}
+input:-moz-placeholder {
+    color:    #fff;
+}
+
+input:-o-placeholder {
+     color:    #fff;
+ }
+
+
+/* 滚动条 
+@media only screen and (-webkit-min-device-pixel-ratio: 0) and (min-device-width: 1025px) {
+    ::-webkit-scrollbar {
+        width: 9px;
+        height: 9px;
+    }
+
+    ::-webkit-scrollbar-button:start:decrement,
+    ::-webkit-scrollbar-button:end:increment {
+        display: block;
+        height: 10px;
+    }
+
+    ::-webkit-scrollbar-button:vertical:increment {
+        background-color: #fff;
+    }
+
+    ::-webkit-scrollbar-track-piece {
+        background-color: #eee;
+        -webkit-border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:vertical {
+        height: 50px;
+        background-color: #777;
+        -webkit-border-radius: 9px;
+    }
+
+    ::-webkit-scrollbar-thumb:horizontal {
+        width: 50px;
+        background-color: #777;
+        -webkit-border-radius: 9px;
+    }
+}
+*/

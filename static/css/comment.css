@@ -1,0 +1,55 @@
+#body{
+}
+
+#body-comment .hr{
+    background: -moz-linear-gradient(left, rgba(200, 200, 200, 0) rgba(200, 200, 200, 0.3));
+    background: -webkit-gradient(linear, left 0, right 0, from(rgba(200, 200, 200, 0)), to(rgba(200, 200, 200, .3)));
+    background: -o-linear-gradient(left, rgba(200, 200, 200, 0), rgba(200, 200, 200, 0.3));
+}
+
+#body-comment .comment-item{
+    border-left: 1px solid rgba(255, 255, 255, .2);
+    border-right: 1px solid rgba(255, 255, 255, .2);
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    margin-top: 25px;
+    border-radius: 5px;
+    padding: 0 0 10px 10px;;
+    min-height: 85px;
+}
+
+#body-comment .article-item{
+    height: 225px;
+    width: 600px;
+    width: 100%;
+    margin-right: 200px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    overflow: hidden;
+    cursor: default;
+    box-shadow: 1px 1px 3px #999;
+    /*
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    */
+}
+
+#body-comment a{
+    color: white;
+    text-decoration: none;
+}
+
+#body-comment .article-item:hover {
+    box-shadow: 1px 1px 7px #aaa;
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    z-index: 100;
+}
+
+#body-comment .article-title{
+    font-size: 2em;
+    color: white !important;
+    text-decoration: none;
+}
