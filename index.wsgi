@@ -18,9 +18,9 @@ import sae
 import sae.storage
 
 from settings import urls, loadSqla, render, sql_session
-from models import Lol, webpy_table, Ip, Classes, initDb, Article, func, Comment
-from utils import SQLAStore, saveIp, getIpStatics, pageArticles, googleTranslate,\
-    html2text, getWeather, resizeImg, Image, getMultimedia, sitemap
+from models import Lol, webpy_table, Classes, initDb, Article, func, Comment
+from utils import SQLAStore, saveIp, getIpStatics, pageArticles,\
+        googleTranslate, html2text, resizeImg, Image, getMultimedia, sitemap
 
 render._lookup.filters['html2text'] = html2text
 render._lookup.filters['getMultimedia'] = getMultimedia
@@ -45,7 +45,7 @@ class Sitemap:
     def GET(self):
         web.header("Content-Type", "text/xml")
         return sitemap()
-        
+
 class Home:
     def GET(self, page):
         if page is None:
@@ -530,6 +530,7 @@ class ChangePwd:
         old, new, confirm = i.old, i.new, i.confirm
         if '' in (old, new, confirm):
             msg = "error"
+        return msg
 
 class ThirdApp:
     def GET(self, app):

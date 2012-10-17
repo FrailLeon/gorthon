@@ -1,3 +1,5 @@
+
+
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
@@ -11,9 +13,9 @@ from sgmllib import SGMLParser
 from xml.parsers.expat import ParserCreate
 from models import Article
 
-try: # 本地
+try:  # 本地
     import Image
-except ImportError: #sae
+except ImportError:  # sae
     from PIL import Image
 import web
 from sqlalchemy import desc
@@ -21,36 +23,38 @@ from sqlalchemy import desc
 from settings import sql_session
 from models import Ip, func
 
+
 class SQLAStore(web.session.Store):
     def __init__(self, table):
         self.table = table
 
     def __contains__(self, key):
-        return bool(sql_session.execute(self.table.select(self.table.c.session_id==key)).fetchone())
+        return bool(sql_session.execute(self.table.select(self.table.c.session_id == key)).fetchone())
 
     def __getitem__(self, key):
-        s = sql_session.execute(self.table.select(self.table.c.session_id==key)).fetchone()
+        s = sql_session.execute(self.table.select(self.table.c.session_id == key)).fetchone()
         if s is None:
             raise KeyError
         else:
-            sql_session.execute(self.table.update().values(atime=datetime.datetime.now()).where(self.table.c.session_id==key))
+            sql_session.execute(self.table.update().values(atime=datetime.datetime.now()).where(self.table.c.session_id == key))
             return self.decode(s[self.table.c.data])
 
     def __setitem__(self, key, value):
         pickled = self.encode(value)
         if key in self:
-            sql_session.execute(self.table.update().values(data=pickled).where(self.table.c.session_id==key))
+            sql_session.execute(self.table.update().values(data=pickled).where(self.table.c.session_id == key))
         else:
             sql_session.execute(self.table.insert().values(session_id=key, data=pickled))
         sql_session.commit()
 
     def __delitem__(self, key):
-        sql_session.execute(self.table.delete(self.table.c.session_id==key))
+        sql_session.execute(self.table.delete(self.table.c.session_id == key))
 
     def cleanup(self, timeout):
-        timeout = datetime.timedelta(timeout/(24.0*60*60))
+        timeout = datetime.timedelta(timeout / (24.0 * 60 * 60))
         last_allowed_time = datetime.datetime.now() - timeout
-        sql_session.execute(self.table.delete(self.table.c.atime<last_allowed_time))
+        sql_session.execute(self.table.delete(self.table.c.atime < last_allowed_time))
+
 
 class Net(object):
     """
@@ -59,7 +63,7 @@ class Net(object):
     def __init__(self):
         self.cookie = cookielib.LWPCookieJar()
         self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cookie))
-        self.headers = {'User-Agent':'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.168 Safari/535.19'}
+        self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.168 Safari/535.19'}
         urllib2.install_opener(self.opener)
 
     def post(self, url, params):
@@ -67,6 +71,7 @@ class Net(object):
 
     def get(self, url):
         return self.opener.open(urllib2.Request(url, headers=self.headers), timeout=30).read()
+
 
 def saveIp(ip):
     """
@@ -83,12 +88,13 @@ def saveIp(ip):
         position = '@@'
     try:
         city = sql_session.query(Ip).filter_by(ip=ip)[0]
-        city.visit +=1
+        city.visit += 1
     except IndexError:
         city = Ip(ip, 1, position)
         sql_session.add(city)
     sql_session.commit()
     return d['city']
+
 
 def getIpStatics():
     q = sql_session.query(Ip)
@@ -101,6 +107,7 @@ def getIpStatics():
         top_pos=top_city.position,
         total_visit=total_visit,
     )
+
 
 def pageArticles(articles, page=1, per_page=5):
     """
@@ -116,14 +123,17 @@ def pageArticles(articles, page=1, per_page=5):
     start = end - num
     return len(articles), articles[start:end]
 
+
 def googleTranslate(s):
     try:
-        html = Net().get("http://translate.google.cn/translate_a/t?client=t&text=%s&hl=en&sl=zh-CN&"
-                    "tl=en&multires=1&trs=1&srcrom=1&prev=btn&ssel=0&tsel=0&sc=1" % urllib.quote(str(s)))
+        html = Net().get(
+            "http://translate.google.cn/translate_a/t?client=t&text=%s&hl=en&sl=zh-CN&"
+            "tl=en&multires=1&trs=1&srcrom=1&prev=btn&ssel=0&tsel=0&sc=1" % urllib.quote(str(s)))
         index = html.index("]")
         return re.sub(r"-+", "-", re.sub(r"[^\w-]+", "", re.findall(r"(.*?),", html[3:index])[0].replace(" ", "-"))).lower()
     except Exception:
         return None
+
 
 class _Html2text(SGMLParser):
     def reset(self):
@@ -133,11 +143,13 @@ class _Html2text(SGMLParser):
     def handle_data(self, text):
         self.text += text
 
+
 def html2text(html):
     parser = _Html2text()
     parser.feed(html)
     parser.close()
     return parser.text
+
 
 def getMultimedia(html):
     # 先判断有没有视频
@@ -150,10 +162,11 @@ def getMultimedia(html):
     media = '<p style="z-index: 0;text-align:center;">' + media + '<br /></p>' if media else ''
     return media
 
+
 class Xml2Json:
     LIST_TAGS = ['COMMANDS']
 
-    def __init__(self, data = None):
+    def __init__(self, data=None):
         self._parser = ParserCreate()
         self._parser.StartElementHandler = self.start
         self._parser.EndElementHandler = self.end
@@ -181,7 +194,7 @@ class Xml2Json:
     def end(self, tag):
         last_tag = self._stack.pop()
         assert last_tag[0] == tag
-        if len(last_tag) == 1: #leaf
+        if len(last_tag) == 1:  # leaf
             data = self._data
         else:
             if tag not in Xml2Json.LIST_TAGS:
@@ -195,16 +208,17 @@ class Xml2Json:
                             data[k] = [el, v]
                         else:
                             el.append(v)
-            else: #force into a list
+            else:  # force into a list
                 data = [{k:v} for k, v in last_tag[1:]]
         if self._stack:
             self._stack[-1].append((tag, data))
         else:
-            self.result = {tag:data}
+            self.result = {tag: data}
         self._data = ''
 
     def data(self, data):
         self._data = data
+
 
 def getWeather(city=u'南京'):
     """
@@ -215,13 +229,15 @@ def getWeather(city=u'南京'):
     xml = urllib2.urlopen(url, timeout=15).read()
     return Xml2Json(xml).result['Profiles']['Weather']
 
+
 def resizeImg(img, size=None, min_width=705):
     """缩放图片"""
     w, h = img.size
     if size is None:
-        size = min_width, int(h/(w*1./min_width))
-        img = img.resize(size, Image.ANTIALIAS) # 滤镜输出，不然缩放质量很差
+        size = min_width, int(h / (w * 1. / min_width))
+        img = img.resize(size, Image.ANTIALIAS)  # 滤镜输出，不然缩放质量很差
     return img
+
 
 def sitemap():
     html = '''<?xml version="1.0" encoding="UTF-8"?>

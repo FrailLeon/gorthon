@@ -1,11 +1,13 @@
-﻿# _*_ encoding:utf-8 _*_
+﻿
+
+# _*_ encoding:utf-8 _*_
 # author: 书记
 # email: bh2[at]qq[dot]com
 
 import urllib2
 import urllib
 import cookielib
-import re
+
 
 class Net(object):
     def __init__(self):

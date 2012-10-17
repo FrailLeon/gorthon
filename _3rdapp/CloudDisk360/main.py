@@ -1,4 +1,6 @@
-﻿# _*_ encoding:utf-8 _*_
+﻿
+
+# _*_ encoding:utf-8 _*_
 # author: 书记
 # email: bh2[at]qq[dot]com
 
@@ -16,10 +18,11 @@ from netbase import Net
 sys.path.append('.')
 app_path = os.path.abspath(sys.path[-1]) + '/_3rdapp/CloudDisk360'
 
+
 class CloudDisk(object):
     def __init__(self, email, pwd):
         # 对密码进行md5 hash
-        self.pwd = md5(pwd).hexdigest()  
+        self.pwd = md5(pwd).hexdigest()
         self.email = email
         self.n = Net()
         self.login()
@@ -59,10 +62,16 @@ class CloudDisk(object):
             'dir': '/', 'fname[]': 'upload-gorthon.txt', 'ajax': 1})
         # {"errno":0,"errmsg":"\u64cd\u4f5c\u6210\u529f","data":{"exists":[]}} 操作成功
         token = self.n.cookie.get('token')
-        p = {'Filename': 'upload-gorthon.txt', 'path': '/',
-                'qid': self.qid, 'ofmt': 'json', 'method': 'Sync.webUpload',
-                'token': token, 'v': '1.0.1', 'file': open(app_path + '/upload-gorthon.txt', 'rb'),
-                'Upload': 'Submit Query'}
+        p = {
+            'Filename': 'upload-gorthon.txt',
+            'path': '/',
+            'qid': self.qid,
+            'ofmt': 'json',
+            'method': 'Sync.webUpload',
+            'token': token,
+            'v': '1.0.1',
+            'file': open(app_path + '/upload-gorthon.txt', 'rb'),
+            'Upload': 'Submit Query'}
         datagen, headers = poster.encode.multipart_encode(p)
         opener = poster.streaminghttp.register_openers()
         opener.add_handler(urllib2.HTTPCookieProcessor(self.n.cookie))
@@ -72,23 +81,44 @@ class CloudDisk(object):
             # 分享刚才上传的文件
             # 要先得到刚才那个文件的nid
             print 'Upload file %s' % i
-            jsn = self.n.post('http://c%s.yunpan.360.cn/file/list' % self.cluster_id,
-                {'type': 2, 'order': 'asc', 'field': 'file_name', 't': '0.44758130819536746',
-                    'path': '/', 'page': 0, 'page_size': 300, 'ajax': 1})
+            jsn = self.n.post(
+                'http://c%s.yunpan.360.cn/file/list' %
+                self.cluster_id, {
+                    'type': 2,
+                    'order': 'asc',
+                    'field': 'file_name',
+                    't': '0.44758130819536746',
+                    'path': '/',
+                    'page': 0,
+                    'page_size': 300,
+                    'ajax': 1}
+            )
             nid = re.findall(r"\{oriName: 'upload-gorthon.txt',path: '/upload-gorthon.txt',nid: '(.*?)',.*?\}", jsn)[0]
             if i > 5:  # 分享5个文件
-                self.n.post('http://c%s.yunpan.360.cn/link/create' % self.cluster_id,
-                    {'nid': nid, 'name': '/upload-gorthon.txt', 'ajax': 1})
+                self.n.post(
+                    'http://c%s.yunpan.360.cn/link/create' % self.cluster_id, {
+                        'nid': nid,
+                        'name': '/upload-gorthon.txt',
+                        'ajax': 1}
+                )
                 print 'file %s was shared...' % i
             # 删除刚才上传的文件
-            self.n.post('http://c%s.yunpan.360.cn/file/recycle/' % self.cluster_id, 
-                    {'path[]': '/upload-gorthon.txt', 't': '0.5056146369315684'})
+            self.n.post(
+                'http://c%s.yunpan.360.cn/file/recycle/' % self.cluster_id, {
+                    'path[]': '/upload-gorthon.txt',
+                    't': '0.5056146369315684'}
+            )
             print 'file %s was deleted...' % i
             i -= 1
         # 虽然刚才上传的文件删除了但是分享里面还存在，所以取消分享
-        jsn = self.n.post('http://c%s.yunpan.360.cn/link/list' % self.cluster_id,
-                {'type': 2, 'order': 'asc', 'field': 'file_name',
-                    't': '0.44638799224048853', 'ajax': 1})
+        jsn = self.n.post(
+            'http://c%s.yunpan.360.cn/link/list' % self.cluster_id, {
+                'type': 2,
+                'order': 'asc',
+                'field': 'file_name',
+                't': '0.44638799224048853',
+                'ajax': 1}
+        )
         print 'All files ware unshared...'
         nids = re.findall(r'nid":"(.*?)"', jsn)
         params = '&'.join(map(lambda x: 'nids[]=%s' % x, nids)) + '&ajax=1'
@@ -97,20 +127,24 @@ class CloudDisk(object):
     def reward(self):
         print 'Get reward************************'
         '''领取免费空间'''
-        jsn = json.loads(self.n.post('http://c%s.yunpan.360.cn/user/signin/' % self.cluster_id, 
-                dict(qid=self.qid, method='signin')
-                ))
+        jsn = json.loads(
+            self.n.post(
+                'http://c%s.yunpan.360.cn/user/signin/' %
+                self.cluster_id,
+                dict(qid=self.qid, method='signin'))
+        )
 
         data = jsn['data']
         print data
-        total = int(data['total']) / 1024 ** 2  # 总共
-        reward = int(data['reward']) / 1024 ** 2  # 奖励
+        # total = int(data['total']) / 1024 ** 2  # 总共
+        # reward = int(data['reward']) / 1024 ** 2  # 奖励
+
 
 def run():
-    users = [('bh20077@126.com', '911198809'),
-            ('511503686@qq.com', 'lianglei1213'),
-            ('bh2@qq.com', 'Qyuytwqvbkcg11'),
-            ]
+    users = [
+        ('cctv@126.com', '123456'),
+        ('vtcc@qq.com', '654321'),
+    ]
 
     for email, pwd in users:
         CloudDisk(email, pwd)
