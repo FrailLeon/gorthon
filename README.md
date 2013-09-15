@@ -15,4 +15,4 @@ gorthon
 
 [博客预览](http://gorthon.sinaapp.com)，后台密码是110
 
-[后台截图](http://www.douban.com/link2?url=http%3A//hi.baidu.com/zinianliang/item/2369433f02870e322e0f81d5)
+另外有一个tornado的实现：https://github.com/Shu-Ji/pabo
